@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main_content">
+    <div class="p-3" id="table_container">
+        <div class="mb-3" id="table_title">
+            <h1>
+                Lista de Postagens
+            </h1>
+            <a href="{% url 'posts:post-create' %}">
+                <button class="btn_blue">
+                    Adicionar
+                </button>
+            </a>
+        </div>
+        {% if messages %}
+        {% include "layouts/messages.html" %}
+        {% endif %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th id="th_left">
+                        Título
+                    </th>
+                    <th id="th_right">
+                        Ações
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td {% if forloop.last %}id="td_left_last"{% endif %}>
+                        <a href="{% url 'posts:post-detail' post.pk %}">
+                            {{ post.title }}
+                        </a>
+                    </td>
+                    <td {% if forloop.last %}id="td_right_last"{% endif %}>
+                        <a class="me-2" href="{% url 'posts:post-update' post.pk %}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a data-bs-toggle="modal" href="#deleteModal{{ post.pk }}">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                        {% include 'posts/post_confirm_delete.html' %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" id="td_empty">
+                        Nenhuma postagem disponível
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if posts %}
+        {% include 'layouts/pagination.html' %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

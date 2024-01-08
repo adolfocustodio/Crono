@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main_content">
+    <div class="p-3" id="table_container">
+        <div class="mb-3" id="table_title">
+            <h1>
+                Lista de Categorias
+            </h1>
+            <a href="{% url 'categories:category-create' %}">
+                <button class="btn_blue">
+                    Adicionar
+                </button>
+            </a>
+        </div>
+        {% if messages %}
+        {% include "layouts/messages.html" %}
+        {% endif %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th id="th_left">
+                        Nome
+                    </th>
+                    <th id="th_right">
+                        Ações
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td {% if forloop.last %}id="td_left_last"{% endif %}>
+                        {{ category.name }}
+                    </td>
+                    <td {% if forloop.last %}id="td_right_last"{% endif %}>
+                        <a class="me-2" href="{% url 'categories:category-update' category.pk %}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a data-bs-toggle="modal" href="#deleteModal{{ category.pk }}">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                        {% include 'categories/category_confirm_delete.html' %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" id="td_empty">
+                        Nenhuma categoria disponível
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if categories %}
+        {% include 'layouts/pagination.html' %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

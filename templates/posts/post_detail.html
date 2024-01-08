@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="main_content">
+    <div class="p-3" id="posts_container">
+        <div class="mb-3">
+            <h1 class="mb-2">
+                {{ post.title }}
+            </h1>
+            <div class="d-flex">
+                <a class="me-2" href="">
+                    {{ post.user }}
+                </a>
+                {% if post.category %}
+                <a class="me-2" href="">
+                    {{ post.category }}
+                </a>
+                {% endif %}
+                <p>
+                    {{ post.created_at }}
+                </p>
+            </div>
+        </div>
+        <div class="mb-3">
+            <p>
+                {{ post.desc | linebreaksbr }}
+            </p>
+        </div>
+        <div>
+            <div class="card p-3">
+                <a href="{{ post.file.url }}">
+                    <i class="bi bi-file-earmark"></i>
+                    {{ post.file }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

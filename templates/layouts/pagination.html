@@ -1,0 +1,12 @@
+<div id="pagination">
+    <div>
+        <a class="{% if not page_obj.has_previous %}d-none{% endif %}" href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% endif %}">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+    </div>
+    <div>
+        <a class="{% if not page_obj.has_next %}d-none{% endif %}" href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% endif %}">
+            <i class="bi bi-arrow-right"></i>
+        </a>
+    </div>
+</div>

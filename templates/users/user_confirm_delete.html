@@ -1,0 +1,28 @@
+<div class="fade modal" id="deleteModal{{ user.pk }}">
+    <form action="{% url 'users:user-delete' user.pk %}" class="modal-dialog modal-dialog-centered" method="post">
+        {% csrf_token %}
+        <div class="modal-content">
+            <div class="p-3" id="modal_header">
+                <h1>
+                    Excluir usuário?
+                </h1>
+                <a data-bs-dismiss="modal" type="button">
+                    <i class="bi bi-x-lg"></i>
+                </a>
+            </div>
+            <div class="p-3" id="modal_body">
+                <p>
+                    Isso vai excluir "<span class="obj">{{ user.username }}</span>"
+                </p>
+            </div>
+            <div class="p-3" id="modal_buttons">
+                <button class="btn_gray me-2" data-bs-dismiss="modal" type="button">
+                    Cancelar
+                </button>
+                <button class="btn_red" type="submit">
+                    Excluir
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

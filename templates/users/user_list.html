@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main_content">
+    <div class="p-3" id="table_container">
+        <div class="mb-3" id="table_title">
+            <h1>
+                Lista de Usuários
+            </h1>
+            <a href="{% url 'users:user-create' %}">
+                <button class="btn_blue">
+                    Adicionar
+                </button>
+            </a>
+        </div>
+        {% if messages %}
+        {% include "layouts/messages.html" %}
+        {% endif %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th id="th_left">
+                        Nome
+                    </th>
+                    <th id="th_right">
+                        Ações
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td {% if forloop.last %}id="td_left_last"{% endif %}>
+                        <a href="{% url 'users:user-detail' user.pk %}">
+                            {{ user.username }}
+                        </a>
+                    </td>
+                    <td {% if forloop.last %}id="td_right_last"{% endif %}>
+                        <a class="me-2" href="{% url 'users:user-update' user.pk %}">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a data-bs-toggle="modal" href="#deleteModal{{ user.pk }}">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                        {% include 'users/user_confirm_delete.html' %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" id="td_empty">
+                        Nenhum usuário disponível
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% if users %}
+        {% include 'layouts/pagination.html' %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
