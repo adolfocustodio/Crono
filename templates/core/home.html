@@ -5,7 +5,7 @@
         {% for post in posts %}
         <div class="mb-3" id="post">
             <div class="p-3" id="post_header">
-                <a href="">
+                <a class="post_link" href="">
                     {{ post.user }}
                 </a>
                 <a href="">
@@ -18,7 +18,7 @@
                         {{ post.title }}
                     </h1>
                     {% if post.category %}
-                    <a href="">
+                    <a class="post_link" href="">
                         {{ post.category }}
                     </a>
                     {% endif %}
